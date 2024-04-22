@@ -2,7 +2,7 @@
   display: flex;
   border: 1px solid black;
   border-radius: 4px;
-  padding: 5px;
+  padding: 10px;
   min-width: 250px;
   justify-content: space-between;
   align-items: center;
@@ -14,7 +14,9 @@
   font-size: 18px;
   color: black;
 }
-
+.my-icon {
+  margin-right: 20px;
+}
 .btn {
   font-size: 18px;
   letter-spacing: -0.02em;

@@ -7,11 +7,11 @@ export default function Contact({ constactItem: { name, number } }) {
     <div className={css.containerItem}>
       <div className={css.contText}>
         <p className={css.text}>
-          <IoPerson className="my-icon" size="24" />
+          <IoPerson className="my-icon" size="18" />
           {name}
         </p>
         <p className={css.text}>
-          <FaPhoneAlt className="my-icon" size="24" />
+          <FaPhoneAlt className="my-icon" size="18" />
           {number}
         </p>
       </div>
