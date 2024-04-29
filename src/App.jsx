@@ -1,27 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import css from "./App.module.css";
 
 import ContactList from "./components/ContactList/ContactList";
-import constactArr from "./contacts.json";
+import contactArr from "./contacts.json";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
 
 export default function App() {
   const [search, setSearch] = useState("");
-  const [contactValues, setContactValue] = useState(constactArr);
-
+  const [contacts, setContacts] = useState(contactArr);
   const addContact = (newContact) => {
-    setContactValue((prevContats) => {
-      return [...prevContats, newContact];
+    setContacts((prevContacts) => {
+      return [...prevContacts, newContact];
     });
   };
-  const deleteContact = (constactId) => {
-    setContactValue((prevContats) => {
-      return prevContats.filter((contact) => contact.id !== constactId);
+  const deleteContact = (contactId) => {
+    setContacts((prevContacts) => {
+      return prevContacts.filter((contact) => contact.id !== contactId);
     });
   };
-  const searchContacts = contactValues.filter((contactValue) =>
+  const searchContacts = contacts.filter((contactValue) =>
     contactValue.name.toLowerCase().includes(search.toLowerCase())
   );
 
