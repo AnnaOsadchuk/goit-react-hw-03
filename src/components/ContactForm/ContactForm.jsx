@@ -1,6 +1,7 @@
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { nanoid } from "nanoid";
 import css from "./ContactForm.module.css";
 
 const SignupSchema = Yup.object().shape({
@@ -9,7 +10,7 @@ const SignupSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   phone: Yup.string()
-    .length(9, "Must be exactly 9 digits")
+    .matches(/^\d{9}$/, "Must be exactly 9 digits")
     .required("Required"),
 });
 
@@ -20,26 +21,26 @@ export default function ContactForm({ onAdd }) {
   const handleSubmit = (values, actions) => {
     console.log("handleSubmit", values);
     onAdd({
-      id: Date.now(),
-      name: actions.elements.username.value,
-      number: actions.elements.phone.value,
+      id: nanoid(),
+      name: values.username,
+      number: values.phone,
     });
     actions.resetForm();
   };
 
   return (
     <Formik
-      initialValues={{ username: "dfg", phone: "33435" }}
+      initialValues={{ username: "", phone: "" }}
       validationSchema={SignupSchema}
       onSubmit={handleSubmit}
     >
-      <Form className={css.wrapperForm} onSubmit={handleSubmit}>
+      <Form className={css.wrapperForm}>
         <div className={css.wrapinput}>
           <label className={css.label} htmlFor={userNameId}>
             Name
           </label>
           <Field className={css.input} name="username" id={userNameId} />
-          <ErrorMessage name="username" />
+          <ErrorMessage name="username" component="div" className={css.error} />
         </div>
         <div className={css.wrapinput}>
           <label className={css.label} htmlFor={userPhoneId}>
@@ -51,7 +52,7 @@ export default function ContactForm({ onAdd }) {
             name="phone"
             id={userPhoneId}
           />
-          <ErrorMessage name="phone" />
+          <ErrorMessage name="phone" component="div" className={css.error} />
         </div>
         <div>
           <button className={css.btn} type="submit">

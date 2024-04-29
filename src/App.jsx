@@ -9,8 +9,8 @@ import ContactForm from "./components/ContactForm/ContactForm";
 /* import ContactForm from "./components/ContactForm/ContactForm"; */
 
 export default function App() {
-  const [filter, setFilter] = useState("");
-  const [contactValue, setContactValue] = useState(constactArr);
+  const [search, setSearch] = useState("");
+  const [contactValues, setContactValue] = useState(constactArr);
 
   const addContact = (newContact) => {
     setContactValue((prevContats) => {
@@ -22,14 +22,17 @@ export default function App() {
       return prevContats.filter((contact) => contact.id !== constactId);
     });
   };
+  const searchContacts = contactValues.filter((contactValue) =>
+    contactValue.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
       <div className={css.container}>
         <h1 className={css.title}>Phonebook</h1>
         <ContactForm onAdd={addContact} />
-        <SearchBox value={filter} onChange={setFilter} />
-        <ContactList constacts={contactValue} onDelete={deleteContact} />
+        <SearchBox value={search} onChange={setSearch} />
+        <ContactList constacts={searchContacts} onDelete={deleteContact} />
       </div>
     </>
   );
