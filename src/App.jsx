@@ -6,7 +6,6 @@ import ContactList from "./components/ContactList/ContactList";
 import constactArr from "./contacts.json";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
-/* import ContactForm from "./components/ContactForm/ContactForm"; */
 
 export default function App() {
   const [search, setSearch] = useState("");
@@ -32,7 +31,7 @@ export default function App() {
         <h1 className={css.title}>Phonebook</h1>
         <ContactForm onAdd={addContact} />
         <SearchBox value={search} onChange={setSearch} />
-        <ContactList constacts={searchContacts} onDelete={deleteContact} />
+        <ContactList contacts={searchContacts} onDelete={deleteContact} />
       </div>
     </>
   );
