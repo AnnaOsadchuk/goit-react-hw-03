@@ -9,12 +9,25 @@ import ContactForm from "./components/ContactForm/ContactForm";
 
 export default function App() {
   const [search, setSearch] = useState("");
-  const [contacts, setContacts] = useState(contactArr);
+
+  const [contacts, setContacts] = useState(() => {
+    const savedUsers = window.localStorage.getItem("saved-contact");
+    if (savedUsers !== null) {
+      return JSON.parse(savedUsers);
+    }
+    return contactArr;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("saved-contact", JSON.stringify(contacts));
+  }, [contacts]);
+
   const addContact = (newContact) => {
     setContacts((prevContacts) => {
       return [...prevContacts, newContact];
     });
   };
+
   const deleteContact = (contactId) => {
     setContacts((prevContacts) => {
       return prevContacts.filter((contact) => contact.id !== contactId);
